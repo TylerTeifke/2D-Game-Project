@@ -11,6 +11,7 @@ public class playerMovement : MonoBehaviour
     public float speed = 40f;
     float horizontalMovement = 0f;
     bool jump = false;
+    bool dash = false;
 
     // Update is called once per frame
     void Update()
@@ -20,11 +21,16 @@ public class playerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump")){
             jump = true;
         }
+
+        if(Input.GetButtonDown("Dash")){
+            dash = true;
+        }
     }
 
     void FixedUpdate(){
 
-        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump);
+        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, dash);
         jump = false;
+        dash = false;
     }
 }

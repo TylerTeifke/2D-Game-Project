@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
+	[SerializeField] private float m_DashForce = 400f;							// Amount of force added when the player dashes.
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
@@ -61,7 +62,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float move, bool crouch, bool jump, bool dash)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -129,6 +130,25 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+		}
+
+		// If the player should dash
+		if (dash)
+		{
+			// Move the character by finding the target velocity
+			Vector3 targetVelocity = new Vector2(move * m_DashForce, m_Rigidbody2D.velocity.y);
+			// And then smoothing it out and applying it to the character
+			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			// Add a rightward horizontal force to the player.
+			/*
+			if(m_FacingRight){
+				m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
+			}
+			// Add a leftward horizontal force to the player.
+			else{
+				m_Rigidbody2D.AddForce(new Vector2(-800f, 0f));
+			}
+			*/
 		}
 	}
 
