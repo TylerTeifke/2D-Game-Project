@@ -8,6 +8,8 @@ public class playerMovement : MonoBehaviour
 {
 
     public CharacterController2D controller;
+    public Animator animator;
+
     public float speed = 40f;
     float horizontalMovement = 0f;
     bool jump = false;
@@ -18,13 +20,21 @@ public class playerMovement : MonoBehaviour
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal") * speed;
 
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
+
         if(Input.GetButtonDown("Jump")){
             jump = true;
+            animator.SetBool("isJumping", true);
         }
 
         if(Input.GetButtonDown("Dash")){
             dash = true;
         }
+    }
+
+    public void OnLanding ()
+    {
+        animator.SetBool("isJumping", false);
     }
 
     void FixedUpdate(){
