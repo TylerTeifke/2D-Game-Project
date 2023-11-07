@@ -5,6 +5,8 @@ public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[SerializeField] private float m_DashForce = 400f;							// Amount of force added when the player dashes.
+	[SerializeField] private float m_DownwardForce = -400f;						// Amount of force added when the player dashes downward.
+	[SerializeField] private float m_UpwardForce = 400f;						// Amount of force added when the player dashes upward.
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
@@ -15,6 +17,8 @@ public class CharacterController2D : MonoBehaviour
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
+	private bool m_UpwardAvaiable;      // Whether or not the player has access to the upward dash. This will make it so the player can only perform one 
+										//upward dash until they hit the ground.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -46,6 +50,7 @@ public class CharacterController2D : MonoBehaviour
 	{
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+		m_UpwardAvaiable = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -55,6 +60,7 @@ public class CharacterController2D : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
+				m_UpwardAvaiable = true;
 				if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
@@ -62,7 +68,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump, bool dash)
+	public void Move(float move, bool crouch, bool jump, bool dash, bool upward, bool downward)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -149,6 +155,20 @@ public class CharacterController2D : MonoBehaviour
 				m_Rigidbody2D.AddForce(new Vector2(-800f, 0f));
 			}
 			*/
+		}
+
+		//If the player should dash upward
+		if (m_UpwardAvaiable && upward){
+			// Add a vertical force to the player.
+			m_UpwardAvaiable = false;
+			m_Grounded = false;
+			m_Rigidbody2D.AddForce(new Vector2(0f, m_UpwardForce));
+		}
+
+		//If the player should dash downward
+		if (downward){
+			// Add a vertical force to the player.
+			m_Rigidbody2D.AddForce(new Vector2(0f, m_DownwardForce));
 		}
 	}
 

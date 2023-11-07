@@ -14,6 +14,8 @@ public class playerMovement : MonoBehaviour
     float horizontalMovement = 0f;
     bool jump = false;
     bool dash = false;
+    bool upwardSlash = false;
+    bool downwardSlash = false;
 
     // Update is called once per frame
     void Update()
@@ -30,6 +32,14 @@ public class playerMovement : MonoBehaviour
         if(Input.GetButtonDown("Dash")){
             dash = true;
         }
+
+        if(Input.GetButtonDown("Upward")){
+            upwardSlash = true;
+        }
+
+        if(Input.GetButtonDown("Downward")){
+            downwardSlash = true;
+        }
     }
 
     public void OnLanding ()
@@ -39,8 +49,10 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate(){
 
-        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, dash);
+        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, dash, upwardSlash, downwardSlash);
         jump = false;
         dash = false;
+        upwardSlash = false;
+        downwardSlash = false;
     }
 }

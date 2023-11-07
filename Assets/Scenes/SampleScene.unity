@@ -289,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_JumpForce: 900
   m_DashForce: 700
+  m_DownwardForce: -900
+  m_UpwardForce: 900
   m_CrouchSpeed: 0.4
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -449,7 +451,7 @@ MonoBehaviour:
   attackRange: 0.5
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 0
 --- !u!1 &221472591
 GameObject:
   m_ObjectHideFlags: 0
