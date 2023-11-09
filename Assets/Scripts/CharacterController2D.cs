@@ -146,15 +146,6 @@ public class CharacterController2D : MonoBehaviour
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 			// Add a rightward horizontal force to the player.
-			/*
-			if(m_FacingRight){
-				m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
-			}
-			// Add a leftward horizontal force to the player.
-			else{
-				m_Rigidbody2D.AddForce(new Vector2(-800f, 0f));
-			}
-			*/
 		}
 
 		//If the player should dash upward
