@@ -9,7 +9,6 @@ public class playerMovement : MonoBehaviour
 
     public CharacterController2D controller;
     public Animator animator;
-
     //Will hold the amount of collectables gotten
     private int collectables = 0;
 
