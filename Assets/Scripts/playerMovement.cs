@@ -18,9 +18,15 @@ public class playerMovement : MonoBehaviour
     public float speed = 40f;
     float horizontalMovement = 0f;
     bool jump = false;
-    bool dash = false;
+    bool leftDash = false;
+    bool rightDash = false;
     bool upwardSlash = false;
     bool downwardSlash = false;
+
+    //Will allow the player to input special moves when an item is collected
+    bool canDash = false;
+    bool canUpward = false;
+    bool canDownward = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,15 +47,19 @@ public class playerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
-        if(Input.GetButtonDown("Dash")){
-            dash = true;
+        if(Input.GetButtonDown("Left Dash") && canDash){
+            leftDash = true;
         }
 
-        if(Input.GetButtonDown("Upward")){
+        if(Input.GetButtonDown("Right Dash") && canDash){
+            rightDash = true;
+        }
+
+        if(Input.GetButtonDown("Upward") && canUpward){
             upwardSlash = true;
         }
 
-        if(Input.GetButtonDown("Downward")){
+        if(Input.GetButtonDown("Downward") && canDownward){
             downwardSlash = true;
         }
     }
@@ -61,16 +71,26 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate(){
 
-        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, dash, upwardSlash, downwardSlash);
+        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, leftDash, rightDash, upwardSlash, downwardSlash);
         jump = false;
-        dash = false;
+        leftDash = false;
+        rightDash = false;
         upwardSlash = false;
         downwardSlash = false;
     }
 
     void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Pickup")){
-            collectables = collectables + 1;
+        //When a specific pick up has been collected, the power up tied to that pick up will be activated
+        if(other.CompareTag("Dash")){
+            canDash = true;
+        }
+
+        if(other.CompareTag("Upward")){
+            canUpward = true;
+        }
+
+        if(other.CompareTag("Downward")){
+            canDownward = true;
         }
 
         //Will end the game if all three collectables have been collected

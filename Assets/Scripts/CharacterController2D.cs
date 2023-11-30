@@ -68,7 +68,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump, bool dash, bool upward, bool downward)
+	public void Move(float move, bool crouch, bool jump, bool leftDash, bool rightDash, bool upward, bool downward)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -138,15 +138,22 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 
-		// If the player should dash
-		if (dash)
+		// If the player should dash to the left
+		if (leftDash)
+		{
+			// Add a leftward horizontal force to the player.
+			m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
+		}
+
+		// If the player should dash to the right
+		if (rightDash)
 		{
 			// Move the character by finding the target velocity
-			//Vector3 targetVelocity = new Vector2(move * m_DashForce, m_Rigidbody2D.velocity.y);
+			//Vector3 targetVelocity = new Vector2(m_DashForce * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			//m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 			// Add a rightward horizontal force to the player.
-			m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
+			m_Rigidbody2D.AddForce(new Vector2(-m_DashForce, 0f));
 		}
 
 		//If the player should dash upward
