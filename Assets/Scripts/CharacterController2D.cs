@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+//Dash code gotten from https://www.youtube.com/watch?v=2kFGmuPHiA0
+
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
