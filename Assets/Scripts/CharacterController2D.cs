@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 //Dash code gotten from https://www.youtube.com/watch?v=2kFGmuPHiA0
+//Most other code gotten from https://github.com/Brackeys/2D-Character-Controller
 
 public class CharacterController2D : MonoBehaviour
 {
