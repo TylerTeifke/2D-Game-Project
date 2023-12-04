@@ -18,8 +18,7 @@ public class playerMovement : MonoBehaviour
     public float speed = 40f;
     float horizontalMovement = 0f;
     bool jump = false;
-    bool leftDash = false;
-    bool rightDash = false;
+    bool dash = false;
     bool upwardSlash = false;
     bool downwardSlash = false;
 
@@ -47,12 +46,8 @@ public class playerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
-        if(Input.GetButtonDown("Left Dash") && canDash){
-            leftDash = true;
-        }
-
-        if(Input.GetButtonDown("Right Dash") && canDash){
-            rightDash = true;
+        if(Input.GetButtonDown("Dash") && canDash){
+            dash = true;
         }
 
         if(Input.GetButtonDown("Upward") && canUpward){
@@ -71,10 +66,9 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate(){
 
-        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, leftDash, rightDash, upwardSlash, downwardSlash);
+        controller.Move(horizontalMovement * Time.fixedDeltaTime, false, jump, dash, upwardSlash, downwardSlash);
         jump = false;
-        leftDash = false;
-        rightDash = false;
+        dash = false;
         upwardSlash = false;
         downwardSlash = false;
     }
