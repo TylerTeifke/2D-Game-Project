@@ -1,47 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PauseControl : MonoBehaviour
 {
     //Code was gotten from https://gamedevbeginner.com/the-right-way-to-pause-the-game-in-unity/
 
     //Will keep track of whether the game is paused or not
-    public static bool gameIsPaused;
+    public static bool gameIsPaused = false;
 
     //Will display the text used for pausing the game
-    public GameObject pauseText;
+    public GameObject pauseMenu;
 
     void Start()
     {
         // Initially set the win text to be inactive.
-        pauseText.SetActive(false);
+        //pauseText.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            gameIsPaused = !gameIsPaused;
-            PauseGame();
+            if (gameIsPaused)
+            {
+                Resume();
+            } 
+            else
+            {
+                Pause();
+            }
         }
     }
 
-    //Will pause and unpause the game depending on whether the game is currently paused or not
-    void PauseGame(){
-        if(gameIsPaused)
-        {
-            //Pauses the game
-            Time.timeScale = 0f;
-            pauseText.SetActive(true);
-        }
-        else 
-        {
-            //Unpauses the game
-            Time.timeScale = 1;
-            pauseText.SetActive(false);
-        }
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        gameIsPaused = false;
+    }
+
+    void Pause()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsPaused = true;
+    }
+
+    public void LoadMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }
