@@ -17,8 +17,8 @@ public class PauseControl : MonoBehaviour
 
     void Start()
     {
-        // Initially set the win text to be inactive.
-        //pauseText.SetActive(false);
+        // Initially set the pause text to be inactive.
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame

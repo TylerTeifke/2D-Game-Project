@@ -469,9 +469,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 88929911}
+  healthBar: {fileID: 499605627}
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 499605627}
+  iFrameDuration: 0
+  numberOfFlashes: 0
 --- !u!1 &221472591
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8397a1ce42310bb48b6ec3897767756d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUps: []
 --- !u!4 &232391197
 Transform:
   m_ObjectHideFlags: 0
@@ -2308,7 +2311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3723788ff89194aa6224c597f01b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseText: {fileID: 1187160713}
+  pauseMenu: {fileID: 1187160713}
 --- !u!1 &655300141
 GameObject:
   m_ObjectHideFlags: 0

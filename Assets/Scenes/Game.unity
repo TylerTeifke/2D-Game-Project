@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_JumpForce: 900
-  m_DashForce: 5000
+  m_DashForce: 100
   m_DownwardForce: -900
   m_UpwardForce: 1200
   m_CrouchSpeed: 0.4
