@@ -19,6 +19,9 @@ public class Boss : MonoBehaviour
     public bool isDead = false;
     private bool phase2Entered = false;
 
+    // UI object to display winning text.
+    public GameObject winTextObject;
+
     public void LookAtPlayer()
     {
         Vector3 flipped = transform.localScale;
@@ -68,6 +71,8 @@ public class Boss : MonoBehaviour
         Debug.Log("Boss has died");
         animator.SetBool("isDead", true);
         Destroy(gameObject);
+        Time.timeScale = 0f;
+        winTextObject.SetActive(true);
     }
 
     // Start is called before the first frame update
@@ -76,6 +81,8 @@ public class Boss : MonoBehaviour
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator.enabled = false;
+        // Initially set the win text to be inactive.
+        winTextObject.SetActive(false);
     }
 
     // Update is called once per frame
