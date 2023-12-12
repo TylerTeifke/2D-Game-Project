@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public bool isInvulnerable = false;
     public bool isDead = false;
+    private bool phase2Entered = false;
 
     public void LookAtPlayer()
     {
@@ -44,9 +45,10 @@ public class Boss : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Boss is at " + currentHealth + "HP");
 
-        if (currentHealth <= 250) 
+        if (currentHealth <= 250 && !phase2Entered) 
         {
             EnterPhase2();
+            phase2Entered = true;
         }
 
         if (currentHealth <= 0)
@@ -73,6 +75,7 @@ public class Boss : MonoBehaviour
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator.enabled = false;
     }
 
     // Update is called once per frame
