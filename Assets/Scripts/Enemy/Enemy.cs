@@ -22,9 +22,6 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Enemy is at " + currentHealth + "hp");
 
-        // Play hurt animation
-        //animator.SetTrigger("Hurt");
-
         // Call death function upon <=0 health
         if (currentHealth <= 0) 
         {
@@ -36,13 +33,6 @@ public class Enemy : MonoBehaviour
     void Death()
     {
         Debug.Log("Enemy has died!");
-
-        // Play death animation
-        //animator.SetBool("IsDead", true);
-
-        // disable enemy
-        //GetComponent<Collider2D>().enabled = false;
-        //this.enabled = false;
         Destroy(gameObject);
     }
 

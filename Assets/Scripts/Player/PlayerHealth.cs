@@ -46,13 +46,14 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player has died");
         
         animator.SetBool("isDead", true);
-
+      
         //Destroy(gameObject);
     }
 
     private IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(6, 10, true);
+        Physics2D.IgnoreLayerCollision(6, 9, true);
 
         for (int i = 0; i < numberOfFlashes; i++)
         {
@@ -63,5 +64,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         Physics2D.IgnoreLayerCollision(6, 10, false);
+        Physics2D.IgnoreLayerCollision(6, 9, false);
     }
 }

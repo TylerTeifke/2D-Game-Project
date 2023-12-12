@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
 
     public Transform attackPoint;
     public LayerMask enemyLayers;
+    public LayerMask bossLayers;
 
     public float attackRange = 0.5f;
     public int attackDamage = 50;
@@ -41,12 +42,19 @@ public class PlayerCombat : MonoBehaviour
 
         // detect enemy in range
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitBoss = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, bossLayers);
 
         // damage 
-        foreach(Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("enemy hit: " + enemy.name);
             enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+        }
+
+        foreach(Collider2D boss in hitBoss)
+        {
+            Debug.Log("boss hit: " + boss.name);
+            boss.GetComponent<Boss>().TakeDamage(attackDamage);
         }
     }
     void OnDrawGizmosSelected()
